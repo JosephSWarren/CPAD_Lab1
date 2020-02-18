@@ -1,15 +1,15 @@
 
 class Question{
   String stem;
+  var response;
+  var answer;
 
   Question(){
 
   }
 
-  Question(Map<String, dynamic> jsonQuestion){
-    if(jsonQuestion.containsKey("type") && jsonQuestion["type"]==1{
-      return mcQuestion(jsonQuestion["stem"], jsonQuestion["answer"], jsonQuestion["option"]);
-    }
+  Question.bob(Map<String, dynamic> jsonQuestion){
+    
   }
 
   bool validateInput(var userResult){

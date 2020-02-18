@@ -9,21 +9,6 @@ class SessionQuiz{
   int awardedPoints;
   int currentQuestion;
 
-  /*sessionQuiz(List<question.Question> questions, [int numQuestions =5]){
-    var maxQuestions = question.length;
-    if(numQuestions>maxQuestions){
-      numQuestions=maxQuestions;
-    }
-    var rng = new Random();
-    int randomNumber;
-    for(var i=0; i<numQuestions; i++){
-      while(question.contains(randomNumber=rng.nextInt(maxQuestions))){ //Probably a terrible way to do this.
-        question.add(randomNumber);
-      }
-    }
-    currentQuestion=awardedPoints=0;
-  }*/
-
   SessionQuiz(List<question.Question> allQuestions, [int numQuestions=5]){
     questions=[];
     allQuestions.forEach((value) => questions.add(value));
@@ -64,6 +49,15 @@ class SessionQuiz{
     }
   }
 
+  bool checkCompletion(){
+    int i=0;
+    questions.forEach((question) => {
+    if(question.response==null){
+      print('question #${i} has not been answered.');
+    }
+    i++});
+  }
+
   void submit(){
     gradeQuiz();
   }
@@ -72,8 +66,7 @@ class SessionQuiz{
     if(!questions[currentQuestion].validateInput(response)){
       return false;
     }
-    
+    next();
+    return true;
   }
-
-  
 }
