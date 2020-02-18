@@ -1,10 +1,11 @@
 import 'package:cpad_lab1/Question.dart' as question;
 class SaQuestion extends question.Question{ //type 2
-  List<String> answer;
-  String response;
+  //List<String> answer;
+  //String response;
 
-  SaQuestion(stem, this.answer){
-    stem=this.stem;
+  SaQuestion(String stem, List<String> answer){
+    this.stem=stem;
+    this.answer=answer;
   }
 
 @override

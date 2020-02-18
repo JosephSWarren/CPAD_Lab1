@@ -17,12 +17,12 @@ class SessionQuiz{
   }
 
   void printCurrent(){
-    print('Question #${currentQuestion}\n${questions[currentQuestion].stem}');
+    print('Question #${currentQuestion+1}\n${questions[currentQuestion].stem}');
   }
 
   void gradeQuiz(){
     questions.forEach((problem) => {    
-      if(questions[currentQuestion].gradeQuestion(response)){
+      if(questions[currentQuestion].gradeQuestion()){
         awardedPoints+=10,
       }
     });
@@ -50,12 +50,15 @@ class SessionQuiz{
   }
 
   bool checkCompletion(){
-    int i=0;
+    var ret=true;
+    var i=1;
     questions.forEach((question) => {
     if(question.response==null){
-      print('question #${i} has not been answered.');
-    }
+      print('question #${i} has not been answered.'),
+      ret=false,
+    },
     i++});
+    return(ret);
   }
 
   void submit(){
