@@ -12,5 +12,12 @@ class Question{
     }
   }
 
+  bool validateInput(var userResult){
+
+  }
+
+  bool gradeQuestion(var userResult){
+
+  }
 
 }

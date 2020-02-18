@@ -1,4 +1,6 @@
 import 'package:cpad_lab1/Question.dart' as question;
+import 'package:cpad_lab1/SaQuestion.dart' as SaQ;
+import 'package:cpad_lab1/mcQuestion.dart' as McQ;
 import 'dart:math';
 
 class SessionQuiz{
@@ -33,8 +35,13 @@ class SessionQuiz{
     print('Question #${currentQuestion}\n${questions[currentQuestion].stem}');
   }
 
-  void answerQuestion(){
-
+  void gradeQuiz(var response){
+    questions.forEach((problem) => {    
+      if(questions[currentQuestion].gradeQuestion(response)){
+        awardedPoints+=10,
+      }
+    });
+    _grade=(awardedPoints/(questions.length * 10)).round();
   }
 
   

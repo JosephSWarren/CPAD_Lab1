@@ -6,8 +6,14 @@ class SaQuestion extends question.Question{ //type 2
     stem=this.stem;
   }
 
-  bool gradeQuestion(String userResult){
+@override
+  bool gradeQuestion(var userResult){
     return answer.contains(userResult.toLowerCase());
+  }
+
+@override
+  bool validateInput(var userResult){
+    return userResult.runTimeType==String;
   }
 
   void formatAnswer(){

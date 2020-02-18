@@ -7,10 +7,12 @@ class mCProblem extends question.Question{ //type 1
     stem=newStem;
   }
 
-  bool gradeQuestion(int userResult){
+@override
+  bool gradeQuestion(var userResult){
     return userResult==answer;
   }
 
+@override
   bool validateInput(var userResult){
     if(userResult.runTimeType==int){
       return userResult>0 && userResult<=option.length;
