@@ -1,4 +1,4 @@
-import 'package:cpad_lab1/Question.dart' as question;
+import 'package:cpad_lab1/Question.dart'as question;
 import 'package:cpad_lab1/SaQuestion.dart' as SaQ;
 import 'package:cpad_lab1/mcQuestion.dart' as McQ;
 import 'dart:math';
@@ -35,13 +35,44 @@ class SessionQuiz{
     print('Question #${currentQuestion}\n${questions[currentQuestion].stem}');
   }
 
-  void gradeQuiz(var response){
+  void gradeQuiz(){
     questions.forEach((problem) => {    
       if(questions[currentQuestion].gradeQuestion(response)){
         awardedPoints+=10,
       }
     });
     _grade=(awardedPoints/(questions.length * 10)).round();
+  }
+
+  void previous(){
+    if(currentQuestion==0){
+      print('You are at the first question and can not go back further.');
+    }
+    else{
+      currentQuestion-=1;
+      printCurrent();
+    }
+  }
+
+  void next(){
+    if(currentQuestion==questions.length-1){
+      print('You are already at the last question. If you are ready to submit. Type submit.');
+    }
+    else{
+      currentQuestion+=1;
+      printCurrent();
+    }
+  }
+
+  void submit(){
+    gradeQuiz();
+  }
+
+  bool answerQuestion(var response){
+    if(!questions[currentQuestion].validateInput(response)){
+      return false;
+    }
+    
   }
 
   

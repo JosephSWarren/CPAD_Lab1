@@ -16,7 +16,7 @@ class Question{
 
   }
 
-  bool gradeQuestion(var userResult){
+  bool gradeQuestion(){
 
   }
 
