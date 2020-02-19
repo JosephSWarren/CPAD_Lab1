@@ -4,20 +4,19 @@ class Question{
   var response;
   var answer;
 
+  Question.named(this.stem, this.response, this.answer);
+
   Question(){
-
-  }
-
-  Question.bob(Map<String, dynamic> jsonQuestion){
-    
+    stem= 'my question';
+    answer= 'yes';
   }
 
   bool validateInput(var userResult){
-
+return true;
   }
 
   bool gradeQuestion(){
-
+return true;
   }
 
 }
