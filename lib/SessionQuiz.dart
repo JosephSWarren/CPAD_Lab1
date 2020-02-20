@@ -18,8 +18,8 @@ class SessionQuiz {
 
   SessionQuiz(List<quest.Question> allQuestions, [int numQuestions = 5]) {
     questions = [];
-    allQuestions.forEach((value) => questions.add(value));
-    questions.shuffle;
+    allQuestions.forEach((question) => questions.add(question));
+    questions.shuffle();
     questions.removeRange(numQuestions, questions.length);
     currentQuestion = 0;
   }
@@ -36,7 +36,7 @@ class SessionQuiz {
     print(
         'Question #${currentQuestion + 1}\n${questions[currentQuestion].stem}');
     if (questions[currentQuestion].response != null) {
-      print('Your current answer: ${questions[currentQuestion]}');
+      print('Your current answer: ${questions[currentQuestion].response}');
     }
   }
 
@@ -94,6 +94,7 @@ class SessionQuiz {
     if (!questions[currentQuestion].validateInput(response)) {
       return false;
     }
+    questions[currentQuestion].response=response;
     next();
     return true;
   }

@@ -1,10 +1,10 @@
 import 'package:cpad_lab1/Question.dart' as question;
 class McQuestion extends question.Question{ //type 1
   List<String> option;
+  int answer;
 
-  McQuestion(String stem, int answer, this.option){
+  McQuestion(String stem, this.answer, this.option){
     this.stem=stem;
-    this.answer=answer;
   }
 
 @override

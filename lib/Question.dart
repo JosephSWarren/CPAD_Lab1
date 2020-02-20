@@ -1,14 +1,12 @@
 
 class Question{
   String stem;
-  var response;
-  var answer;
+  dynamic response;
 
-  Question.named(this.stem, this.response, this.answer);
+  Question.named(this.stem, this.response);
 
   Question(){
-    stem= 'my question';
-    answer= 'yes';
+    
   }
 
   bool validateInput(var userResult){

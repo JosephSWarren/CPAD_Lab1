@@ -9,55 +9,71 @@ import 'package:cpad_lab1/SaQuestion.dart' as saq;
 class WebController {
   List<quest.Question> _masterList;
 
-  WebController(){
-    _masterList=[];
+  WebController() {
+    _masterList = [];
   }
 
-  List<quest.Question> get getMasterList{
+  List<quest.Question> get getMasterList {
     return _masterList;
   }
 
   void createMasterList() async {
-    dynamic stem;
-    dynamic answer;
-    dynamic option;
+    String stem;
+    int mcanswer;
+    List<String> saanswer;
+    List<String> option;
 
-    const quizUrl = 'http://www.cs.utep.edu/cheon/cs4381/homework/quiz?quiz=quiz0';
+    const quizUrl =
+        'http://www.cs.utep.edu/cheon/cs4381/homework/quiz?quiz=quiz0';
     for (var i = 1; i <= 4; i++) {
       var httpResponse = await http.get(quizUrl + i.toString());
+      print('${quizUrl+i.toString()}');
       //print('${quizUrl + i.toString()}');
       var jsonMap = (json.decode(httpResponse.body));
       if (jsonMap['response'] == true) {
         //print('${jsonMap['quiz']['name']}');
         //print('${jsonMap['quiz']['question'].length}');
         jsonMap['quiz']['question'].forEach((question) => {
-              if (question['type'] == 1)
-                {
-                  if (question['stem'] is String)
-                    {
-                      stem = question['stem'],
-                    },
-                  if (question['answer'] is List<String>)
-                    {
-                      answer = question['answer'],
-                    },
-                  if (question['option'] is int)
-                    {
-                      option = question['option'],
-                    },
-                  _masterList.add(mcq.McQuestion(stem, answer, option)),
+          print('${question['stem']}'),
+              if (question['type'] == 1){
+                  if (question['stem'] is String){
+                    stem = question['stem'],
+                  }
+                  else{
+                    print('1${question['stem']}'),
+                  },
+                  if (question['answer'] is int){
+                    mcanswer = question['answer'],
+                  }
+                  else{
+                    print('2${question['answer']}'),
+                  },
+                  if (question['option'] is List<String> || question['option'] is List<bool>){
+                    option = question['option'],
+                  }
+                  else{
+                    print('3${question['option']}'),
+                  },
+                  print('3'),
+                  _masterList.add(mcq.McQuestion(stem, mcanswer, option)),
+                  print('4'),
                 }
-              else
-                {
-                  if (question['stem'] is String)
-                    {
-                      stem = question['stem'],
-                    },
-                  if (question['answer'] is String)
-                    {
-                      answer = question['answer'],
-                    },
-                  _masterList.add(saq.SaQuestion(stem, answer)),
+              else if(question['type'] == 2){
+                  if (question['stem'] is String){
+                    stem = question['stem'],
+                  }
+                  else{
+                    print('4${question['stem']}'),
+                  },
+                  if (question['answer'] is List<String>){
+                    saanswer = question['answer'],
+                  }
+                  else{
+                    print('5${question['answer']}'),
+                  },
+                  print('5'),
+                  _masterList.add(saq.SaQuestion(stem, saanswer)),
+                  print('6'),
                 }
             });
       }
