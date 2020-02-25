@@ -1,7 +1,7 @@
 import 'package:cpad_lab1/Question.dart' as quest;
 //import 'package:cpad_lab1/main.dart' as pac1;
 import 'package:http/http.dart' as http;
-//import 'dart:io';
+import 'dart:io';
 //import 'dart:async';
 import 'dart:convert';
 import 'package:cpad_lab1/McQuestion.dart' as mcq;
@@ -12,8 +12,8 @@ import 'package:cpad_lab1/SaQuestion.dart' as saq;
 
 class SessionQuiz {
   List<quest.Question> questions; //Index of all questions that will be used for quiz
-  int _grade;
-  int awardedPoints;
+  double _grade;
+  int awardedPoints=0;
   int currentQuestion;
 
   SessionQuiz(List<quest.Question> allQuestions, [int numQuestions = 5]) {
@@ -22,9 +22,21 @@ class SessionQuiz {
     questions.shuffle();
     questions.removeRange(numQuestions, questions.length);
     currentQuestion = 0;
+    /*questions.forEach((question) =>{
+      print('${question.stem}'),
+      if(question is mcq.McQuestion){
+        question.option.forEach((opt) =>{
+          print('${opt}'),
+        }),
+        print('${question.answer}'),
+      }
+      else if(question is saq.SaQuestion){
+        print('${question.answer}'),
+      }
+    });*/
   }
 
-  int get getGrade {
+  double get getGrade {
     return _grade;
   }
 
@@ -36,18 +48,24 @@ class SessionQuiz {
     print(
         'Question #${currentQuestion + 1}\n${questions[currentQuestion].stem}');
     if (questions[currentQuestion].response != null) {
-      print('Your current answer: ${questions[currentQuestion].response}');
+      print('Your current answer: ${questions[currentQuestion].response+1}');
     }
   }
 
   void gradeQuiz() {
+    //var j=0;
     questions.forEach((problem) => {
-          if (questions[currentQuestion].gradeQuestion())
+                    //print('$j) ${questions[currentQuestion].gradeQuestion()}'),
+
+          //if (questions[currentQuestion].gradeQuestion())
+          if (problem.gradeQuestion())
             {
-              awardedPoints += 10,
-            }
+              awardedPoints++,
+              //print('$j)${awardedPoints}')
+            },
+            //j++,
         });
-    _grade = (awardedPoints / (questions.length * 10)).round();
+    _grade = ( (awardedPoints.toDouble() / questions.length.toDouble()) * 100 );
   }
 
   void previous() {
@@ -82,6 +100,9 @@ class SessionQuiz {
             },
           i++
         });
+        if(ret){
+          print('All questions have been aswered');
+        }
     return (ret);
   }
 
@@ -90,12 +111,31 @@ class SessionQuiz {
     print('${getGrade}');
   }
 
+  void resetQuestions(){
+    questions.forEach((question)=>question.response=null);
+  }
+
   bool answerQuestion(var response) {
     if (!questions[currentQuestion].validateInput(response)) {
       return false;
     }
     questions[currentQuestion].response=response;
-    next();
+    //next();
     return true;
+  }
+
+  void reviewQuiz(){
+    var j=1;
+    questions.forEach((problem) =>{
+      if(problem is saq.SaQuestion && !problem.gradeQuestion()){
+        stdout.write('$j) The correct answer(s) is/are:'),
+        problem.answer.forEach((ans)=> stdout.write(' $ans')),
+        print('. Your answer was: ${problem.response}'),
+      },
+      if(problem is mcq.McQuestion && !problem.gradeQuestion()){
+        print('$j) The correct answer is: ${problem.answer+1}. Your answer was: ${problem.response+1}'),
+      },
+      j++
+    });
   }
 }

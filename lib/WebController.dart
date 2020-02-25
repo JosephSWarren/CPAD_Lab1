@@ -20,60 +20,60 @@ class WebController {
   void createMasterList() async {
     String stem;
     int mcanswer;
-    List<String> saanswer;
-    List<String> option;
+    List saanswer;
+    List option;
 
     const quizUrl =
         'http://www.cs.utep.edu/cheon/cs4381/homework/quiz?quiz=quiz0';
     for (var i = 1; i <= 4; i++) {
       var httpResponse = await http.get(quizUrl + i.toString());
-      print('${quizUrl+i.toString()}');
+      //print('${quizUrl+i.toString()}');
       //print('${quizUrl + i.toString()}');
       var jsonMap = (json.decode(httpResponse.body));
       if (jsonMap['response'] == true) {
         //print('${jsonMap['quiz']['name']}');
         //print('${jsonMap['quiz']['question'].length}');
         jsonMap['quiz']['question'].forEach((question) => {
-          print('${question['stem']}'),
+          //print('${question['stem']}'),
               if (question['type'] == 1){
                   if (question['stem'] is String){
                     stem = question['stem'],
                   }
                   else{
-                    print('1${question['stem']}'),
+                    //print('1${question['stem']}'),
                   },
                   if (question['answer'] is int){
                     mcanswer = question['answer'],
                   }
                   else{
-                    print('2${question['answer']}'),
+                    //print('2${question['answer']}'),
                   },
-                  if (question['option'] is List<String> || question['option'] is List<bool>){
+                  if (question['option'] is List){
                     option = question['option'],
                   }
                   else{
-                    print('3${question['option']}'),
+                    //print('3${question['option']}'),
                   },
-                  print('3'),
+                  //print('3'),
                   _masterList.add(mcq.McQuestion(stem, mcanswer, option)),
-                  print('4'),
+                  //print('4'),
                 }
               else if(question['type'] == 2){
                   if (question['stem'] is String){
                     stem = question['stem'],
                   }
                   else{
-                    print('4${question['stem']}'),
+                    //print('4${question['stem']}'),
                   },
-                  if (question['answer'] is List<String>){
+                  if (question['answer'] is List){
                     saanswer = question['answer'],
                   }
                   else{
-                    print('5${question['answer']}'),
+                    //print('5${question['answer']}'),
                   },
-                  print('5'),
+                  //print('5'),
                   _masterList.add(saq.SaQuestion(stem, saanswer)),
-                  print('6'),
+                  //print('6'),
                 }
             });
       }

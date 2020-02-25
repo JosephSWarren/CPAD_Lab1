@@ -1,14 +1,15 @@
 import 'package:cpad_lab1/Question.dart' as question;
 class SaQuestion extends question.Question{ //type 2
-  List<String> answer;
+  List answer;
 
-  SaQuestion(String stem, List<String> answer){
+  SaQuestion(String stem, List answer){
     this.stem=stem;
     this.answer=answer;
   }
 
 @override
   bool gradeQuestion(){
+    //print('sa) $response vs ${answer[0]}');
     return answer.contains(response.toLowerCase());
   }
 
